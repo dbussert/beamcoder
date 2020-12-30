@@ -99,7 +99,7 @@ async function win32() {
     if (e.code === 'EEXIST') return;
     else throw e;
   });
-  
+
   const ffmpegFilename = 'ffmpeg-4.x-win64-shared';
   await access(`ffmpeg/${ffmpegFilename}`, fs.constants.R_OK).catch(async () => {
     const html = await getHTML('https://github.com/BtbN/FFmpeg-Builds/wiki/Latest', 'latest autobuilds');
@@ -180,7 +180,7 @@ async function darwin() {
   console.log('Checking for FFmpeg dependencies via HomeBrew.');
   let output;
   let returnMessage;
-  
+
   try {
     output = await exec('brew list ffmpeg');
     returnMessage = 'FFmpeg already present via Homebrew.';
@@ -218,12 +218,7 @@ case 'win32':
   }
   break;
 case 'linux':
-  if (os.arch() != 'x64') {
-    console.error('Only 64-bit platforms are supported.');
-    process.exit(1);
-  } else {
-    linux();
-  }
+  linux();
   break;
 case 'darwin':
   if (os.arch() != 'x64') {
